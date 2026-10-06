@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import '../fonts/fonts.css';
+@import 'swiper/css';
 
 @theme {
 	--default-font-family: 'Nunito Sans', var(--font-sans);
@@ -11,9 +12,7 @@
 	--foreground: oklch(98.5% 0 0);
 	--card: oklch(20.5% 0 0);
 	--card-foreground: oklch(98.5% 0 0);
-	--popover: oklch(20.5% 0 0);
-	--popover-foreground: oklch(98.5% 0 0);
-	--primary: oklch(62.7% 0.194 149.214);
+	--primary: hsla(51, 100%, 50%, 1);
 	--primary-foreground: oklch(98.2% 0.018 155.826);
 	--secondary: oklch(26.9% 0 0);
 	--secondary-foreground: oklch(98.5% 0 0);
@@ -48,8 +47,6 @@
 	--color-sidebar: var(--sidebar);
 	--color-card: var(--card);
 	--color-card-foreground: var(--card-foreground);
-	--color-popover: var(--popover);
-	--color-popover-foreground: var(--popover-foreground);
 	--color-primary: var(--primary);
 	--color-primary-foreground: var(--primary-foreground);
 	--color-secondary: var(--secondary);
@@ -70,6 +67,8 @@
 
 	--animate-shake: input-shake 280ms linear;
 	--animate-duration-revert: 280ms;
+
+	--mask-image-radial-fade: radial-gradient(circle, black 40%, transparent 80%);
 }
 
 @layer base {
@@ -80,6 +79,6 @@
 	}
 
 	body {
-		@apply bg-radial-[at_10%_10%] from-background to-black to-75% text-foreground h-svh;
+		@apply bg-radial-[at_10%_10%] bg-fixed from-background to-black to-75% text-foreground h-svh;
 	}
 }
