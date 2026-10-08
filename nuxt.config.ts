@@ -1,24 +1,24 @@
-import tailwindcss from '@tailwindcss/vite';
+import tailwindcss from "@tailwindcss/vite";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-				compatibilityDate: '2025-07-15',
-				devtools: { enabled: true },
-				css: ['./app/assets/css/main.css'],
+  compatibilityDate: "2025-07-15",
+  devtools: { enabled: true },
+  css: ["./app/assets/css/main.css"],
 
-				vite: {
-								plugins: [tailwindcss()],
-				},
+  vite: {
+    plugins: [tailwindcss()],
+  },
 
-				app: {
-								head: {
-												title: 'Ромарио', // default fallback title
-												htmlAttrs: {
-																lang: 'ru',
-												},
-												link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-								},
-				},
+  app: {
+    head: {
+      title: "Ромарио",
+      htmlAttrs: {
+        lang: "ru",
+      },
+      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    },
+  },
 
-				modules: ['@nuxt/image', 'nuxt-swiper', '@pinia/nuxt', 'nuxt-lucide-icons'],
+  modules: ["@nuxt/image", "nuxt-swiper", "@pinia/nuxt", "nuxt-lucide-icons"],
 });
