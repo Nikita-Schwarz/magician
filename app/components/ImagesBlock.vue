@@ -65,7 +65,7 @@ const handleSlideClick = (image: string, idx: number) => {
 
 <template>
   <div class="container mx-auto mt-12 px-4">
-    <h4 class="mb-12 text-center text-2xl font-bold text-white">Магия в действии</h4>
+    <h4 class="mb-12 text-center text-4xl font-bold text-stone-200">Магия в действии</h4>
 
     <ClientOnly>
       <swiper-container ref="containerRef" :init="false">
