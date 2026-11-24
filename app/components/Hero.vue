@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto mt-4 px-4 md:mt-6">
+  <section class="container mx-auto mt-4 px-4 md:mt-6">
     <div class="relative mx-auto aspect-3/4 w-full max-w-lg overflow-hidden rounded-2xl bg-black">
       <div class="absolute inset-0">
         <NuxtImg src="/images/hero_img.jpg" class="h-full w-full object-cover" />
@@ -34,5 +34,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>

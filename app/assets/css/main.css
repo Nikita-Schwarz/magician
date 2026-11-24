@@ -4,6 +4,7 @@
 
 @theme {
   --default-font-family: 'Nunito Sans', var(--font-sans);
+  --bree-font-family: 'Bree Serif',
 }
 
 :root {
@@ -23,15 +24,7 @@
   --destructive: oklch(50.5% 0.213 27.518);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(62.7% 0.194 149.214);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(98.5% 0 0);
-  --sidebar-primary: oklch(62.7% 0.194 149.214);
-  --sidebar-primary-foreground: oklch(98.5% 0 0);
-  --sidebar-accent: oklch(26.9% 0 0);
-  --sidebar-accent-foreground: oklch(98.5% 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(62.7% 0.194 149.214);
+  --font-bree: 'Bree Serif', var(--font-sans);
 }
 
 @theme inline {
@@ -69,6 +62,8 @@
   --animate-duration-revert: 280ms;
 
   --mask-image-radial-fade: radial-gradient(circle, black 40%, transparent 80%);
+
+  --font-bree: var(--font-bree);
 }
 
 @layer base {

@@ -1,6 +1,4 @@
 <template>
-	<NuxtLayout>
-		<NuxtPage />
-		<UiModalImage />
-	</NuxtLayout>
+  <NuxtPage />
+  <UiModalImage />
 </template>

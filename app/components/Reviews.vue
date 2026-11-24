@@ -38,6 +38,9 @@ const slides = ref([
   },
 ]);
 
+const isBeginning = ref(true);
+const isEnd = ref(false);
+
 const swiper = useSwiper(containerRef, {
   centeredSlides: false,
   spaceBetween: 64,
@@ -52,30 +55,46 @@ const swiper = useSwiper(containerRef, {
       slidesPerView: 4,
     },
   },
+
+  on: {
+    init(s) {
+      isBeginning.value = s.isBeginning;
+      isEnd.value = s.isEnd;
+    },
+    slideChange(s) {
+      isBeginning.value = s.isBeginning;
+      isEnd.value = s.isEnd;
+    },
+    // Срабатывает при изменении размера окна (breakpoints)
+    breakpoint(s) {
+      isBeginning.value = s.isBeginning;
+      isEnd.value = s.isEnd;
+    },
+  },
 });
 </script>
 
 <template>
-  <div class="container mx-auto mt-6 px-4 pb-100">
+  <section class="container mx-auto mt-6 px-4">
     <h4 class="text-stone mb-12 text-center text-4xl font-bold">Мои отзывы</h4>
 
-    <div class="flex items-center justify-between gap-8">
+    <div class="flex items-center justify-between gap-2 md:gap-8">
       <button
         v-if="slides.length > 4"
+        :disabled="isBeginning"
         @click="swiper.prev()"
-        class="size-12 shrink-0 content-center rounded-full bg-stone-950 transition-opacity hover:cursor-pointer"
-        :class="swiper.isBeginning.value ? 'opacity-30' : 'opacity-100'"
+        class="size-8 shrink-0 content-center rounded-full bg-stone-950 transition-opacity hover:cursor-pointer disabled:cursor-default disabled:opacity-30 md:size-12"
       >
         <LucideChevronLeft
           class="mx-auto size-8 transition-colors"
-          :class="swiper.isBeginning.value ? 'stroke-white' : 'stroke-primary'"
+          :class="isBeginning ? 'stroke-white' : 'stroke-primary'"
         />
       </button>
 
       <ClientOnly>
         <swiper-container ref="containerRef" :init="false" class="min-w-0">
           <swiper-slide v-for="(slide, idx) in slides" :key="idx">
-            <div class="border-primary mx-auto max-w-2xs rounded-2xl border bg-black p-4">
+            <div class="border-border mx-auto max-w-2xs rounded-2xl border-2 bg-black p-4">
               <div class="mb-4 flex gap-4">
                 <img
                   :src="slide.avatar"
@@ -84,7 +103,7 @@ const swiper = useSwiper(containerRef, {
                 />
 
                 <div class="flex flex-1 flex-col gap-2">
-                  <h6>{{ slide.name }}</h6>
+                  <h6 class="font-bree">{{ slide.name }}</h6>
 
                   <div
                     class="[&_svg]:fill-primary [&_svg]:stroke-primary flex gap-2 [&_svg]:size-4 [&_svg]:stroke-1"
@@ -98,7 +117,7 @@ const swiper = useSwiper(containerRef, {
                 </div>
               </div>
 
-              <p>
+              <p class="font-bree">
                 {{ slide.description }}
               </p>
             </div>
@@ -108,15 +127,15 @@ const swiper = useSwiper(containerRef, {
 
       <button
         v-if="slides.length > 4"
+        :disabled="isEnd"
         @click="swiper.next()"
-        class="size-12 shrink-0 content-center rounded-full bg-stone-950 transition-opacity hover:cursor-pointer"
-        :class="swiper.isEnd.value ? 'opacity-30' : 'opacity-100'"
+        class="size-8 shrink-0 content-center rounded-full bg-stone-950 transition-opacity hover:cursor-pointer disabled:cursor-default disabled:opacity-30 md:size-12"
       >
         <LucideChevronRight
           class="mx-auto size-8 transition-colors"
-          :class="swiper.isEnd.value ? 'stroke-white' : 'stroke-primary'"
+          :class="isEnd ? 'stroke-white' : 'stroke-primary'"
         />
       </button>
     </div>
-  </div>
+  </section>
 </template>

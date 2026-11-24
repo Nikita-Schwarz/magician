@@ -1,5 +1,7 @@
 <template>
-	<Hero />
-	<ImagesBlock />
-	<Reviews />
+  <AppHeader />
+  <Hero />
+  <ImagesBlock />
+  <Reviews />
+  <FAQ />
 </template>

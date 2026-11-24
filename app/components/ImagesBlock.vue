@@ -64,7 +64,7 @@ const handleSlideClick = (image: string, idx: number) => {
 </script>
 
 <template>
-  <div class="container mx-auto mt-12 px-4">
+  <section class="container mx-auto mt-12 px-4">
     <h4 class="mb-12 text-center text-4xl font-bold text-stone-200">Магия в действии</h4>
 
     <ClientOnly>
@@ -82,8 +82,8 @@ const handleSlideClick = (image: string, idx: number) => {
 
     <div class="custom-swiper-pagination mt-4 flex justify-center gap-2"></div>
 
-    <p class="mt-10 text-center">Готовы удивить ваших гостей?</p>
-  </div>
+    <p class="font-bree mt-10 text-center">Готовы удивить ваших гостей?</p>
+  </section>
 </template>
 
 <style scoped>
