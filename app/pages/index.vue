@@ -4,4 +4,5 @@
   <ImagesBlock />
   <Reviews />
   <FAQ />
+  <Contacts />
 </template>
