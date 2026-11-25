@@ -1,25 +1,21 @@
 <script setup lang="ts">
+const { pb, getFileUrl } = usePocketBase();
 const containerRef = ref(null);
-const slides = ref([
-  {
-    image: '/images/image.png',
-    title: 'Левитация предметов',
-    description:
-      'Законы физики больше не работают на этой сцене. Полный отрыв от реальности и гравитации.',
-  },
-  {
-    image: '/images/hero_img.jpg',
-    title: 'Чтение мыслей',
-    description: 'Интерактивное шоу, в котором фокусник заглянет в мысли зрителей прямо из зала.',
-  },
-  {
-    image: '/images/image_1.png',
-    title: 'Ловкость рук',
-    description: 'Фокусы на расстоянии вытянутой руки. Вы не поверите собственным глазам.',
-  },
-]);
-
 const modalStore = useModalImageStore();
+
+const { data: slides } = await useAsyncData('gallery', async () => {
+  try {
+    const records = await pb.collection('gallery').getFullList({ sort: 'order' });
+    return records.map((item) => ({
+      id: item.id,
+      image: getFileUrl(item, item.image),
+      title: item.title,
+      description: item.description,
+    }));
+  } catch {
+    return [];
+  }
+});
 
 const swiper = useSwiper(containerRef, {
   pagination: {
@@ -28,7 +24,7 @@ const swiper = useSwiper(containerRef, {
   },
   slidesPerView: 1,
   centeredSlides: false,
-  loop: slides.value.length >= 8,
+  loop: (slides.value?.length ?? 0) >= 8,
 
   autoplay: {
     delay: 4000,
@@ -64,14 +60,14 @@ const handleSlideClick = (image: string, idx: number) => {
 </script>
 
 <template>
-  <section class="container mx-auto mt-12 px-4">
+  <section v-if="slides?.length" class="container mx-auto mt-12 px-4">
     <h4 class="mb-12 text-center text-4xl font-bold text-stone-200">Магия в действии</h4>
 
     <ClientOnly>
       <swiper-container ref="containerRef" :init="false">
         <swiper-slide
           v-for="(slide, idx) in slides"
-          :key="idx"
+          :key="slide.id"
           class="photos"
           @click="handleSlideClick(slide.image, idx)"
         >

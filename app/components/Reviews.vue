@@ -1,5 +1,23 @@
 <script setup lang="ts">
+const { pb, getFileUrl } = usePocketBase();
 const containerRef = ref(null);
+
+const { data: slides } = await useAsyncData('reviews', async () => {
+  try {
+    const records = await pb.collection('reviews').getFullList({ sort: 'order,-created' });
+    return records.map((item) => ({
+      id: item.id,
+      avatar: item.avatar ? getFileUrl(item, item.avatar, '150x150') : '/images/hero_img.jpg',
+      grade: item.grade || 5,
+      name: item.name,
+      description: item.description,
+    }));
+  } catch {
+    return [];
+  }
+});
+
+/*
 const slides = ref([
   {
     avatar: '/images/hero_img.jpg',
@@ -36,7 +54,7 @@ const slides = ref([
     description:
       'Роман молодец, мы спустя несколько дней, всё ещё обсуждаем его трюки))) Гости под впечатлением Роман, спасибо большое',
   },
-]);
+]); */
 
 const isBeginning = ref(true);
 const isEnd = ref(false);
@@ -75,7 +93,7 @@ const swiper = useSwiper(containerRef, {
 </script>
 
 <template>
-  <section class="container mx-auto mt-6 px-4">
+  <section v-if="slides?.length" class="container mx-auto mt-6 px-4">
     <h4 class="text-stone mb-12 text-center text-4xl font-bold">Мои отзывы</h4>
 
     <div class="flex items-center justify-between gap-2 md:gap-8">
@@ -93,7 +111,7 @@ const swiper = useSwiper(containerRef, {
 
       <ClientOnly>
         <swiper-container ref="containerRef" :init="false" class="min-w-0">
-          <swiper-slide v-for="(slide, idx) in slides" :key="idx">
+          <swiper-slide v-for="slide in slides" :key="slide.id">
             <div class="border-border mx-auto max-w-2xs rounded-2xl border-2 bg-black p-4">
               <div class="mb-4 flex gap-4">
                 <img
@@ -105,14 +123,13 @@ const swiper = useSwiper(containerRef, {
                 <div class="flex flex-1 flex-col gap-2">
                   <h6 class="font-bree">{{ slide.name }}</h6>
 
-                  <div
-                    class="[&_svg]:fill-primary [&_svg]:stroke-primary flex gap-2 [&_svg]:size-4 [&_svg]:stroke-1"
-                  >
-                    <LucideStar />
-                    <LucideStar />
-                    <LucideStar />
-                    <LucideStar />
-                    <LucideStar />
+                  <div class="flex gap-2">
+                    <LucideStar
+                      v-for="star in 5"
+                      :key="star"
+                      class="stroke-primary size-4 stroke-1"
+                      :class="star <= slide.grade ? 'fill-primary' : 'fill-transparent opacity-30'"
+                    />
                   </div>
                 </div>
               </div>

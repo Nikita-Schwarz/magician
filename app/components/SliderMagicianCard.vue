@@ -11,7 +11,7 @@ defineProps<{
     class="relative mx-auto aspect-3/4 max-h-130 cursor-pointer overflow-hidden rounded-2xl bg-zinc-950"
   >
     <div class="absolute inset-0">
-      <NuxtImg :src="image" :alt="title" class="h-full w-full object-cover" />
+      <img :src="image" :alt="title" loading="lazy" class="h-full w-full object-cover" />
     </div>
 
     <div
