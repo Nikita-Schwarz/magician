@@ -140,7 +140,7 @@ const swiper = useSwiper(containerRef, {
                 :href="slide.link"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-primary mt-4 inline-flex items-center gap-1.5 text-sm font-medium underline-offset-4 hover:underline"
+                class="text-primary mt-4 inline-flex max-w-max items-center gap-1.5 text-sm font-medium underline-offset-4 hover:underline"
               >
                 <span>{{ getSourceLabel(slide.link) }}</span>
                 <LucideExternalLink class="size-3.5" />

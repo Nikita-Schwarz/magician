@@ -97,20 +97,21 @@ const handleBallClick = () => {
 </script>
 
 <template>
-  <section>
+  <section class="container mx-auto my-14 px-4">
     <div
-      class="relative mx-auto flex max-w-5xl flex-col items-center justify-center gap-6 rounded-3xl px-4 py-10 md:flex-row md:gap-8"
+      class="relative mx-auto grid max-w-5xl grid-cols-1 items-center gap-6 rounded-3xl px-4 py-10 md:grid-cols-[1fr_auto_1fr] md:gap-8"
     >
-      <!-- Левый блок: подсказка слева, сам магический шар справа -->
-      <div class="flex flex-col-reverse items-center gap-5 sm:flex-row sm:gap-6">
-        <!-- Постоянная плашка с призывом (по условию текст есть всегда) -->
+      <!-- 1. Левая колонка: постоянная плашка с призывом (прижата к шару) -->
+      <div class="order-2 flex justify-center md:order-1 md:justify-end">
         <div
-          class="font-bree max-w-64 rounded-xl bg-stone-200 px-4 py-3 text-center text-sm leading-snug text-green-950 shadow-lg sm:text-left"
+          class="font-bree max-w-64 rounded-xl bg-stone-200 px-4 py-3 text-center text-sm leading-snug text-green-950 shadow-lg md:text-left"
         >
           Нажмите на магический шар — узнайте предсказание для вашего мероприятия
         </div>
+      </div>
 
-        <!-- Интерактивный магический шар -->
+      <!-- 2. Центральная колонка: шар (всегда строго по центру экрана) -->
+      <div class="order-1 flex justify-center md:order-2">
         <button
           type="button"
           :disabled="isAnimating || Boolean(currentPrediction)"
@@ -209,38 +210,40 @@ const handleBallClick = () => {
         </button>
       </div>
 
-      <!-- Правый блок: появляется после завершения анимации -->
-      <Transition
-        enter-active-class="transition-all duration-500 ease-out"
-        enter-from-class="opacity-0 translate-y-3 md:translate-y-0 md:-translate-x-4"
-        enter-to-class="opacity-100 translate-y-0 md:translate-x-0"
-      >
-        <div v-if="currentPrediction" class="flex max-w-md flex-col items-center md:items-start">
-          <!-- Карточка с выпавшим предсказанием -->
-          <div
-            class="font-bree rounded-xl bg-stone-200 px-5 py-3.5 text-base leading-snug text-green-950 shadow-lg md:text-lg"
-          >
-            {{ currentPrediction }}
-          </div>
-
-          <!-- Призыв и кнопка перехода в Telegram -->
-          <div class="mt-4 flex flex-wrap items-center justify-center gap-4 md:justify-start">
-            <span class="font-bree text-sm leading-tight text-stone-200">
-              Проверим предсказание на<br />вашем празднике?
-            </span>
-
-            <a
-              :href="telegramLink"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="bg-primary inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-bold text-black transition-transform hover:scale-105 hover:bg-amber-400"
+      <!-- 3. Правая колонка: место всегда зарезервировано, ничего не прыгает -->
+      <div class="order-3 flex min-h-44 items-center justify-center md:justify-start">
+        <Transition
+          enter-active-class="transition-all duration-500 ease-out"
+          enter-from-class="opacity-0 scale-95"
+          enter-to-class="opacity-100 scale-100"
+        >
+          <div v-if="currentPrediction" class="flex max-w-md flex-col items-center md:items-start">
+            <!-- Карточка с выпавшим предсказанием -->
+            <div
+              class="font-bree rounded-xl bg-stone-200 px-5 py-3.5 text-base leading-snug text-green-950 shadow-lg md:text-lg"
             >
-              <IconTelegram class="size-4 fill-black" />
-              <span>Написать</span>
-            </a>
+              {{ currentPrediction }}
+            </div>
+
+            <!-- Призыв и кнопка перехода в Telegram -->
+            <div class="mt-4 flex flex-wrap items-center justify-center gap-4 md:justify-start">
+              <span class="font-bree text-sm leading-tight text-stone-200">
+                Проверим предсказание на<br />вашем празднике?
+              </span>
+
+              <a
+                :href="telegramLink"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bg-primary inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-bold text-black transition-transform hover:scale-105 hover:bg-amber-400"
+              >
+                <IconTelegram class="size-4 fill-black" />
+                <span>Написать</span>
+              </a>
+            </div>
           </div>
-        </div>
-      </Transition>
+        </Transition>
+      </div>
     </div>
   </section>
 </template>
