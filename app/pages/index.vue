@@ -5,4 +5,5 @@
   <Reviews />
   <FAQ />
   <Contacts />
+  <AppFooter />
 </template>
